@@ -2,6 +2,7 @@ import psycopg2
 from Loadini import load
 
 def connecta():
+    global conn
     conn = None
     try:
         ini = load()
@@ -17,21 +18,49 @@ def connecta():
 
     except (Exception, psycopg2.DatabaseError) as errou:
         print(errou)
-    finally:
-        #Remover fechamento da conexão e dar um jeito aqui, talvez conn global
-        if conn != None:
-            conn.close()
-            print('Fechou.')
+        
 
 def leitura():
-    file = open("teste02.txt")
+    file = open("teste02.txt", 'r')
 
     linhas = file.readlines()
+    data=[]
+    
+
 
     for line in reversed(linhas):
 
-        print(line)
+        
+
+        details = line.split(",")
+        details = [x.strip() for x in details]
+        details = [x.strip('<') for x in details]
+        details = [x.strip('>') for x in details]
+        details = [x.strip(']') for x in details]
+        
+        print(details)
+        
+        #Desgraca, aaaaaaaaaaaaaaaaaaaa, fazer funcionar e ver direito
+        data.append(details)
+        #print(data)
+        if details==("End CKPT"):
+            break
+    
+
+
+        
+    
+
+
+    #cur = conn.cursor()
+
+def close():
+
+    if conn != None:
+            conn.close()
+            print('Fechou.')
 
 if __name__ == '__main__':
     connecta()
     leitura()
+    close()
