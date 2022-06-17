@@ -18,7 +18,7 @@ def connecta():
     except (Exception, psycopg2.DatabaseError) as errou:
         print(errou)
     finally:
-
+        #Remover fechamento da conexão e dar um jeito aqui
         if conn != None:
             conn.close()
             print('Fechou.')
