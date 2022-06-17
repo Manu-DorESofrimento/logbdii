@@ -18,13 +18,19 @@ def connecta():
     except (Exception, psycopg2.DatabaseError) as errou:
         print(errou)
     finally:
-        #Remover fechamento da conexão e dar um jeito aqui
+        #Remover fechamento da conexão e dar um jeito aqui, talvez conn global
         if conn != None:
             conn.close()
             print('Fechou.')
 
 def leitura():
-    print("vrum")
+    file = open("teste02.txt")
+
+    linhas = file.readlines()
+
+    for line in reversed(linhas):
+
+        print(line)
 
 if __name__ == '__main__':
     connecta()
